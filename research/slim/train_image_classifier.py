@@ -559,6 +559,8 @@ def main(_):
     slim.learning.train(
         train_tensor,
         logdir=FLAGS.train_dir,
+        # Do not delete old checkpoints.
+        saver=tf.train.Saver(max_to_keep=1000000),
         master=FLAGS.master,
         is_chief=(FLAGS.task == 0),
         init_fn=_get_init_fn(),
