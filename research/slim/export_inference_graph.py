@@ -56,6 +56,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import os
 import tensorflow as tf
 
 from tensorflow.python.platform import gfile
@@ -116,6 +117,7 @@ def main(_):
                                         image_size, 3])
     network_fn(placeholder)
     graph_def = graph.as_graph_def()
+    gfile.MakeDirs(os.path.dirname(FLAGS.output_file))
     with gfile.GFile(FLAGS.output_file, 'wb') as f:
       f.write(graph_def.SerializeToString())
 
